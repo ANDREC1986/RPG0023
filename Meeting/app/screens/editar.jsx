@@ -42,7 +42,7 @@ export default function Editar(props) {
 
   const editar = () => {
     var fornecedor = new Fornecedor(nome,contato,logradouro,cidade,estado,logotipo,categoria,galeria,id)
-    Database.fornecedores[index] = fornecedor
+    Database.update(fornecedor)
     navigation.navigate('Home')
   };
 

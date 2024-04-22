@@ -7,13 +7,30 @@ export class FornecedorController {
         this.fornecedores = []
     }
 
-    public novo(nome : String,contato : String, logradouro : String,cidade : String,estado : String,logo : String,categoria : String,galeria : Array<String>){
-        this.fornecedores.push(new Fornecedor(nome,contato,logradouro,cidade,estado,logo,categoria,galeria))
+    public novo(fornecedor : Fornecedor){
+        this.fornecedores.push(fornecedor)
     }
 
-    public list(){
+    private findIndex(fornecedor : Fornecedor) {
+        var counter = 0
+        var index = 0
         this.fornecedores.forEach(element => {
-            console.log(element.id)
-        });
+            if (element.id == fornecedor.id) {
+                index = counter                
+            } else { counter += 1}
+        })
+        return index
     }
+
+    public update(fornecedor : Fornecedor) {
+        this.fornecedores[this.findIndex(fornecedor)] = fornecedor
+    }
+
+    public delete(index : number) {
+        this.fornecedores.splice(index,1)
+
+    }
+
+
+
 }

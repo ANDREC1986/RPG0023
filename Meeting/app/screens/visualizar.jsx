@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import ProfilePhoto from "../components/profilePhoto"
 import { Database } from './home';
-import * as ImagePicker from 'expo-image-picker';
 import Galeria from '../components/galeria';
 
 
@@ -43,7 +42,7 @@ export default function Visualizar(props) {
   };
 
   const deletar = () => {
-    Database.fornecedores.splice(index,1)
+    Database.delete(index)
     navigation.navigate('Home')
   }  
   return (

@@ -22,7 +22,7 @@ export default function Adicionar(props) {
 
   const cadastrar = () => {
     var fornecedor = new Fornecedor(nome, contato, logradouro, cidade, estado, logotipo, categoria, galeria)
-    Database.fornecedores.push(fornecedor)
+    Database.novo(fornecedor)
     navigation.navigate("Home")
   };
 

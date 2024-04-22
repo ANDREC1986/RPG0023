@@ -8,7 +8,6 @@ export default function MenuButton(props) {
     navigation = useNavigation()
 
     const onClick = () => {
-        console.log(props.link)
         navigation.navigate(props.link)
     };
 
