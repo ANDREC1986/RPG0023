@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native"
 
 export default function CardFornecedor(props){
     const editar = () => {
-        navigation.navigate('Editar',
+        navigation.navigate('Visualizar',
         {uuid : props.uuid})
     }
     
