@@ -1,10 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import Navigation from '../components/navigation';
-import ListaFornecedores from '../components/lista-fornecedores';
-import { FornecedorController } from '../repositories/inMemoryFornecedor';
 import { useEffect, useState } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
 import { Database } from './home';
 import CardFornecedor from '../components/cardFornecedor';
 

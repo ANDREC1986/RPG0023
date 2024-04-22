@@ -6,6 +6,7 @@ import { Database } from './home';
 import * as ImagePicker from 'expo-image-picker';
 import Galeria from '../components/galeria';
 import { Fornecedor } from '../entities/fornecedor';
+import Cloudinary from '../repositories/Cloudinary';
 
 
 export default function Editar(props) {
@@ -17,7 +18,7 @@ export default function Editar(props) {
   const [logradouro, setLogradouro] = useState('');
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
-  const [profile, setProfile] = useState('')
+  const [logotipo, setLogotipo] = useState('')
   const [categoria, setCategoria] = useState('');
   const [galeria, setGaleria] = useState([])
 
@@ -33,14 +34,14 @@ export default function Editar(props) {
         setLogradouro(element.logradouro)
         setCidade(element.cidade)
         setEstado(element.estado)
-        setProfile(element.profile)
+        setLogotipo(element.logotipo)
         setCategoria(element.categoria)
         setGaleria(element.galeria)
       } counter += 1
     })}, [])
 
   const editar = () => {
-    var fornecedor = new Fornecedor(nome,contato,logradouro,cidade,estado,profile,categoria,galeria,id)
+    var fornecedor = new Fornecedor(nome,contato,logradouro,cidade,estado,logotipo,categoria,galeria,id)
     Database.fornecedores[index] = fornecedor
     navigation.navigate('Home')
   };
@@ -60,7 +61,7 @@ export default function Editar(props) {
       });
   
       if (!imageResult.cancelled) {
-        setProfile(imageResult.assets[0].uri);
+        setLogotipo(await Cloudinary(imageResult.assets[0].uri));
         }
     } catch{
     };   
@@ -81,7 +82,7 @@ export default function Editar(props) {
         });
     
         if (!imageResult.cancelled) {
-          var novaImagem=imageResult.assets[0].uri
+          var novaImagem = await Cloudinary(imageResult.assets[0].uri)
           var updatedGaleria = [...galeria,novaImagem]
           setGaleria(updatedGaleria)
       }} catch {
@@ -93,7 +94,7 @@ export default function Editar(props) {
     <ScrollView style={styles.container}>
       <View styel={styles.centralized}>
         <TouchableOpacity style={styles.profilePhoto} onPress={profilePicker}>
-          <ProfilePhoto source={profile} size={250}></ProfilePhoto>
+          <ProfilePhoto source={logotipo} size={250}></ProfilePhoto>
         </TouchableOpacity>
       </View>
       <Text style={styles.label}>Nome:</Text>

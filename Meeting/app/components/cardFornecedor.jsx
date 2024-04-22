@@ -18,7 +18,7 @@ export default function CardFornecedor(props){
             editar
         }>
         
-            <ProfilePhoto source={props.image} size={50}></ProfilePhoto>
+            <ProfilePhoto source={props.source} size={45}></ProfilePhoto>
             <Text style={{
                 paddingLeft: 5,
                 fontSize: 25

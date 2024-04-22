@@ -6,6 +6,7 @@ import { Database } from './home';
 import * as ImagePicker from 'expo-image-picker';
 import Galeria from '../components/galeria';
 import { Fornecedor } from '../entities/fornecedor';
+import Cloudinary from '../repositories/Cloudinary';
 
 
 export default function Adicionar(props) {
@@ -15,12 +16,12 @@ export default function Adicionar(props) {
   const [logradouro, setLogradouro] = useState('');
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
-  const [profile, setProfile] = useState('')
+  const [logotipo, setLogotipo] = useState('')
   const [categoria, setCategoria] = useState('');
   const [galeria, setGaleria] = useState([])
 
   const cadastrar = () => {
-    var fornecedor = new Fornecedor(nome, contato, logradouro, cidade, estado, profile, categoria, galeria)
+    var fornecedor = new Fornecedor(nome, contato, logradouro, cidade, estado, logotipo, categoria, galeria)
     Database.fornecedores.push(fornecedor)
     navigation.navigate("Home")
   };
@@ -41,12 +42,10 @@ export default function Adicionar(props) {
       });
   
       if (!imageResult.cancelled) {
-        setProfile(imageResult.assets[0].uri);
-        }
-    } catch{
-
-    };   
-    }
+        setLogotipo(await Cloudinary(imageResult.assets[0].uri))
+      }  
+    } catch (e) { console.log(e)}
+  }
 
     const galeriaPicker = async () => {
       try{  
@@ -63,7 +62,7 @@ export default function Adicionar(props) {
         });
     
         if (!imageResult.cancelled) {
-          var novaImagem=imageResult.assets[0].uri
+          var novaImagem = await Cloudinary(imageResult.assets[0].uri)
           var updatedGaleria = [...galeria,novaImagem]
           setGaleria(updatedGaleria)
       }} catch {
@@ -75,7 +74,7 @@ export default function Adicionar(props) {
     <ScrollView style={styles.container}>
       <View styel={styles.centralized}>
         <TouchableOpacity style={styles.profilePhoto} onPress={profilePicker}>
-          <ProfilePhoto source={profile} size={250}></ProfilePhoto>
+          <ProfilePhoto source={logotipo} size={250}></ProfilePhoto>
         </TouchableOpacity>
       </View>
       <Text style={styles.label}>Nome:</Text>

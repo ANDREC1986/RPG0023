@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Image, StyleSheet } from 'react-native';
 export default function ProfilePhoto(props){
+    const size = props.size
         if(!props.source) {
             return (
                 <FontAwesome5 name="user-circle" size={props.size} color="black" />
@@ -8,7 +9,7 @@ export default function ProfilePhoto(props){
         }
         else {
             return(
-                <Image source={{ uri: props.source }} size={props.size} style={styles.image}></Image>
+                <Image source={{ uri: props.source }} width={props.size} height={props.size} style={styles.image}></Image>
             )
         }
 
@@ -16,8 +17,6 @@ export default function ProfilePhoto(props){
 
 const styles = StyleSheet.create({
     image: {
-      width: 200,
-      height: 200,
       marginTop: 0,
       borderRadius: 0,
     },

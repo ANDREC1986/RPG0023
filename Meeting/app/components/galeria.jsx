@@ -6,11 +6,10 @@ export default function Galeria(props) {
 
     if(props.imagens) {       
         props.imagens.forEach(element => {
-            console.log(element)
             imagens.push(
             <View>
-                <TouchableOpacity >
-                    <Image key={uuid.v1().toString()} source={{uri: element}} style={styles.imagem}></Image>
+                <TouchableOpacity key={uuid.v1().toString()}>
+                    <Image source={{uri: element}} style={styles.imagem}></Image>
                 </TouchableOpacity>
             </View>
             );

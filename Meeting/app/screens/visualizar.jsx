@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import ProfilePhoto from "../components/profilePhoto"
 import { Database } from './home';
 import * as ImagePicker from 'expo-image-picker';
 import Galeria from '../components/galeria';
-import { Fornecedor } from '../entities/fornecedor';
+
 
 
 export default function Visualizar(props) {
@@ -17,7 +16,7 @@ export default function Visualizar(props) {
   const [logradouro, setLogradouro] = useState('');
   const [cidade, setCidade] = useState('');
   const [estado, setEstado] = useState('');
-  const [profile, setProfile] = useState('')
+  const [logotipo, setlogotipo] = useState('')
   const [categoria, setCategoria] = useState('');
   const [galeria, setGaleria] = useState([])
 
@@ -33,7 +32,7 @@ export default function Visualizar(props) {
         setLogradouro(element.logradouro)
         setCidade(element.cidade)
         setEstado(element.estado)
-        setProfile(element.profile)
+        setlogotipo(element.logotipo)
         setCategoria(element.categoria)
         setGaleria(element.galeria)
       } counter += 1
@@ -46,56 +45,11 @@ export default function Visualizar(props) {
   const deletar = () => {
     Database.fornecedores.splice(index,1)
     navigation.navigate('Home')
-  }
-
-  const profilePicker = async () => {
-    try{
-      const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();    
-      if (!permissionResult.granted) {
-        alert('Permissão para acessar a galeria é necessária!');
-        return;
-      }
-  
-      const imageResult = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 1,
-      });
-  
-      if (!imageResult.cancelled) {
-        setProfile(imageResult.assets[0].uri);
-        }
-    } catch{
-    };   
-    }
-
-    const galeriaPicker = async () => {
-      try{  
-        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();    
-        if (!permissionResult.granted) {
-          alert('Permissão para acessar a galeria é necessária!');
-          return;
-        }
-    
-        const imageResult = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          quality: 1,
-        });
-    
-        if (!imageResult.cancelled) {
-          var novaImagem=imageResult.assets[0].uri
-          var updatedGaleria = [...galeria,novaImagem]
-          setGaleria(updatedGaleria)
-      }} catch {
-      }
-      }
-    
-    
+  }  
   return (
     <ScrollView style={styles.container}>
       <View styel={styles.centralized}>
-          <ProfilePhoto source={profile} size={250} style={styles.profilePhoto}></ProfilePhoto>
+          <ProfilePhoto source={logotipo} size={250} style={styles.profilePhoto}></ProfilePhoto>
       </View>
       <Text style={styles.label}>Nome:</Text>
       <Text style={styles.decription}>{nome}</Text>
